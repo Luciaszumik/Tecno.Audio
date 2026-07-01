@@ -105,7 +105,7 @@ let antePintando = false;
 // ====================================================
 let estadoFade = 0; // 0: inactivo, 1: yendo a blanco, 2: volviendo de blanco
 let fadeAlfa = 0;   // Transparencia actual del fundido
-let velocidadFade = 4; // ← AJUSTAR: mayor número = fade más rápido
+let velocidadFade = 4; //  mayor número = fade más rápido
 
 
 // ====================================================
@@ -250,7 +250,7 @@ function draw() {
     
     // CONTROL DINÁMICO DE VELOCIDAD GLOBAL (ONDAS)
     // =========================================================================
-    // Usamos sin() para crear un ciclo suave de lento -> rápido -> lento.
+    // Usamos sin() para crear un ciclo suave de lento rápido  lento
     let velocidadDelCiclo = 0.05; 
     let oscilacion = (sin(frameCount * velocidadDelCiclo) + 1) / 2; 
     
@@ -284,9 +284,9 @@ function draw() {
 
   // ---- PINTURA BORDO —
   if (pintandoGraves) {
-    for (let i = 0; i < 10; i++) {  // velocidad de dibujo por frame
+    for (let i = 0; i < 10; i++) {  
       let x     = random(-100, width + 100);
-      let y     = random(iniciaPinturaGraves, iniciaPinturaGraves + 40); // de cuantp es la franaj
+      let y     = random(iniciaPinturaGraves, iniciaPinturaGraves + 40); 
       let alpha = random(2, 10);
       capaPintura.fill(random(92, 128), random(10, 30), random(18, 48), alpha);
       capaPintura.ellipse(x, y, random(40, 180), random(20, 80));
@@ -583,7 +583,7 @@ function esPosicionValida(nx, ny, nrw, nrh) {
 function fondo() {
   background(238, 225, 210);
 }
-
+ // bloque sólido tope — llega hasta el 60%
 function capaBordo() {
   for (let i = 0; i < 6000; i++) {
     let x = random(width);
@@ -591,12 +591,14 @@ function capaBordo() {
     fill(random(92,128), random(10,30), random(18,48), map(y,-30,height*0.60,62,8));
     ellipse(x, y, random(20,90), random(12,45));
   }
+    // bordó más difuso, refuerza el tope hasta el 42%
   for (let i = 0; i < 4000; i++) {
     let x = random(width);
     let y = random(0, height * 0.42);
     fill(random(105,150), random(18,45), random(30,68), map(y,0,height*0.42,38,2));
     ellipse(x, y, random(35,160), random(18,70));
   }
+    // bordó oscuro para generar la transición hacia la zona baja
   for (let i = 0; i < 1800; i++) {
     let x = random(width);
     let y = random(height*0.38, height*0.82);
@@ -604,16 +606,18 @@ function capaBordo() {
     ellipse(x, y, random(45,190), random(22,85));
   }
 }
-
+//zona media, resultado del bordó + crema
 function capaRosa() {
   for (let i = 0; i < 1200; i++) {
     let x = random(width);
     let y = random(height*0.52, height*0.92);
     fill(183, 96, 90, map(y, height*0.52, height*0.92, 16, 3));
     ellipse(x, y, random(55,220), random(28,100));
+
+     // arranca en 0.52, donde el bordó ya se disolvió y queda un color crema teñida por el bordó
   }
 }
-
+//zona iinferior
 function capaCrema() {
   for (let i = 0; i < 2000; i++) {
     let x = random(width);
@@ -649,12 +653,12 @@ function mousePressed() {
 
 function keyPressed() {
   
-  // C: toggle calibrador
+  // C: muestra o no el calibrador
   if (key === 'c' || key === 'C') {
     mostrarCalibrador = !mostrarCalibrador;
   }
 
-  // R: reset
+  // R: resetea
   else if (key === 'r' || key === 'R') {
     iniciarFadeReset();
   }
